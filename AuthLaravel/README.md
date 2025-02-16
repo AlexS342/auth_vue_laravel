@@ -33,8 +33,8 @@
 5. Настроить подключение к базе данных
    * Если у вас установлен docker:
       - `cp docker-compose.yml.example docker-compose.yml` - создать файл `docker-compose.yml`
-      - в файле `docker-compose.yml` указать параметры для `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`
-      - В файле `.env` исправить параметры `DB_USERNAME`, `DB_PASSWORD`, `DB_DATABASE`. Они должны соответствовать параметрам из файла `docker-compose.yml`
+      - в файле `docker-compose.yml` указать параметры для `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB` и указать ports: **XXXX**/5432
+      - В файле `.env` исправить параметры `DB_USERNAME`, `DB_PASSWORD`, `DB_DATABASE`, `DB_PORT`. Они должны соответствовать параметрам из файла `docker-compose.yml`
       - `sudo docker compose up -d` - запустить базу данных
    * Если БД локально:
       - Возможно потребуется указать другой драйвер подключения к базе данных
