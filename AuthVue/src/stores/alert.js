@@ -53,7 +53,7 @@ export const useAlertStore = defineStore('alert', {
             alert.code = error.code
             alert.message = error.message
 
-            const message = error?.response?.data?.message;
+            const message = error?.response?.data?.message
             if (message) {
                 alert.message = alert.message + ' => ' + message
             }

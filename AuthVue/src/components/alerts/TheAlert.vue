@@ -1,4 +1,10 @@
 <script setup>
+import IconNotificationForAlerts from "@/components/alerts/IconNotificationForAlerts.vue"
+import IconInformationForAlerts from "@/components/alerts/IconInformationForAlerts.vue"
+import IconSuccessFroAlerts from "@/components/alerts/IconSuccessFroAlerts.vue"
+import IconWarningForAlerts from "@/components/alerts/IconWarningForAlerts.vue"
+import IconDangerForAlerts from "@/components/alerts/IconDangerForAlerts.vue"
+
 const props = defineProps({
     id: {
         type: String,
@@ -16,6 +22,13 @@ function hideAlert(){
     }
 }
 
+function checkAvailability(param){
+    return alertStore.alerts[props.id][param] !== undefined
+        && alertStore.alerts[props.id][param] !== null
+        && alertStore.alerts[props.id][param].length >= 1
+
+}
+
 </script>
 
 <template :key="props.id">
@@ -23,50 +36,63 @@ function hideAlert(){
         <div class="alert" :class="{[alertStore.alerts[props.id].style]:true}">
             <div class="iconWRP">
                 <!-- Обычное сообщение (Notification) -->
-                <svg v-if="alertStore.alerts[props.id].icon === 'notification'"
-                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2z"></path>
-                    <path d="M18.364 16.364a9 9 0 1 0-12.728 0"></path>
-                </svg>
+                <IconNotificationForAlerts v-if="alertStore.alerts[props.id].icon === 'notification'"/>
+                <IconInformationForAlerts v-else-if="alertStore.alerts[props.id].icon === 'information'"/>
+                <IconSuccessFroAlerts v-else-if="alertStore.alerts[props.id].icon === 'success'"/>
+                <IconWarningForAlerts v-else-if="alertStore.alerts[props.id].icon === 'warning'"/>
+                <IconDangerForAlerts v-else-if="alertStore.alerts[props.id].icon === 'danger'"/>
+<!--                <svg v-if="alertStore.alerts[props.id].icon === 'notification'"-->
+<!--                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"-->
+<!--                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">-->
+<!--                    <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2z"></path>-->
+<!--                    <path d="M18.364 16.364a9 9 0 1 0-12.728 0"></path>-->
+<!--                </svg>-->
                 <!-- Информация (Information) -->
-                <svg v-else-if="alertStore.alerts[props.id].icon === 'information'"
-                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10" />
-                    <line x1="12" y1="16" x2="12" y2="12" />
-                    <line x1="12" y1="8" x2="12" y2="8" />
-                </svg>
+<!--                <svg v-else-if="alertStore.alerts[props.id].icon === 'information'"-->
+<!--                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"-->
+<!--                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">-->
+<!--                    <circle cx="12" cy="12" r="10" />-->
+<!--                    <line x1="12" y1="16" x2="12" y2="12" />-->
+<!--                    <line x1="12" y1="8" x2="12" y2="8" />-->
+<!--                </svg>-->
                 <!-- Успех (Success) -->
-                <svg v-else-if="alertStore.alerts[props.id].icon === 'success'"
-                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M2 11.382l6.618 6.618 14-14"/>
-                    <circle cx="12" cy="12" r="10"/>
-                </svg>
+<!--                <svg v-else-if="alertStore.alerts[props.id].icon === 'success'"-->
+<!--                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"-->
+<!--                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">-->
+<!--                    <path d="M2 11.382l6.618 6.618 14-14"/>-->
+<!--                    <circle cx="12" cy="12" r="10"/>-->
+<!--                </svg>-->
                 <!-- Предупреждение (Warning) -->
-                <svg v-else-if="alertStore.alerts[props.id].icon === 'warning'"
-                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 5.999l9.194 14.435A2 2 0 0 1 19.194 22H4.806a2 2 0 0 1-1.194-1.565L12 5.999z" />
-                    <line x1="12" y1="10" x2="12" y2="16" />
-                    <line x1="12" y1="19" x2="12" y2="19" />
-                </svg>
+<!--                <svg v-else-if="alertStore.alerts[props.id].icon === 'warning'"-->
+<!--                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"-->
+<!--                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">-->
+<!--                    <path d="M12 5.999l9.194 14.435A2 2 0 0 1 19.194 22H4.806a2 2 0 0 1-1.194-1.565L12 5.999z" />-->
+<!--                    <line x1="12" y1="10" x2="12" y2="16" />-->
+<!--                    <line x1="12" y1="19" x2="12" y2="19" />-->
+<!--                </svg>-->
                 <!-- Опасность (Danger) -->
-                <svg v-else-if="alertStore.alerts[props.id].icon === 'danger'"
-                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="18" y1="6" x2="6" y2="18" />
-                    <line x1="6" y1="6" x2="18" y2="18" />
-                    <circle cx="12" cy="12" r="10" />
-                </svg>
+<!--                <svg v-else-if="alertStore.alerts[props.id].icon === 'danger'"-->
+<!--                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"-->
+<!--                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">-->
+<!--                    <line x1="18" y1="6" x2="6" y2="18" />-->
+<!--                    <line x1="6" y1="6" x2="18" y2="18" />-->
+<!--                    <circle cx="12" cy="12" r="10" />-->
+<!--                </svg>-->
             </div>
 
             <div class="message">
-                <p class="message__title" v-if="alertStore.alerts[props.id].status.length >= 1 || alertStore.alerts[props.id].status > 99">Status: {{ alertStore.alerts[props.id].status }}</p>
-                <p class="message__title" v-if="alertStore.alerts[props.id].code.length >= 1">{{ alertStore.alerts[props.id].code }}</p>
-                <p class="message__text" v-if="alertStore.alerts[props.id].message.length >= 1">{{ alertStore.alerts[props.id].message }}</p>
-                <p class="message__hint" v-if="alertStore.alerts[props.id].hint.length >= 1">{{ alertStore.alerts[props.id].hint }}</p>
+                <p class="message__title" v-if="checkAvailability('status')">
+                    Status: {{ alertStore.alerts[props.id].status }}
+                </p>
+                <p class="message__title" v-if="checkAvailability('code')">
+                    {{ alertStore.alerts[props.id].code }}
+                </p>
+                <p class="message__text" v-if="checkAvailability('message')">
+                    {{ alertStore.alerts[props.id].message }}
+                </p>
+                <p class="message__hint" v-if="checkAvailability('hint')">
+                    {{ alertStore.alerts[props.id].hint }}
+                </p>
             </div>
             <div class="action">
                 <button type="button" class="close" @click="hideAlert">{{'\u2716'}}</button>
